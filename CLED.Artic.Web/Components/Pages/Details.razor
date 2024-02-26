@@ -1,0 +1,17 @@
+﻿@page "/details/{id:int}"
+
+<h3>Details @Id</h3>
+
+@code {
+	[Parameter]
+	public int Id { get; set; }
+
+	protected override Task OnInitializedAsync()
+	{
+
+		//TODO 
+		// Recupero delle informazioni dell'opera corrente
+		return base.OnInitializedAsync();
+
+	}
+}

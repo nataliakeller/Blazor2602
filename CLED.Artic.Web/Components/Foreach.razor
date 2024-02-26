@@ -1,0 +1,16 @@
+﻿@typeparam TItem
+
+<h3>Foreach</h3>
+
+@foreach(var item in Items)
+{
+	@ChildContent?.Invoke(item)
+}
+
+@code {
+	[Parameter]
+	public IEnumerable<TItem> Items { get; set; }
+
+	[Parameter]
+	public RenderFragment<TItem>? ChildContent { get; set; }
+}

@@ -1,0 +1,50 @@
+﻿@using CLED.Artic.Web.Components;
+@page "/"
+@attribute [StreamRendering]
+@inject IArtworksService service
+
+@using CLED.Artic.Web.Models
+@using CLED.Artic.Web.Services
+
+<PageTitle>Home</PageTitle>
+
+<h1>Artworks</h1>
+
+<!-- non funziona --!>
+@if(_list is null){
+    <p>In caricamento...</p>
+}
+
+
+
+<Foreach Items="_list">
+    <Card Header="@context.Title">
+        <img src="https://www.artic.edu/iiif/2/@(context.ImageId)/full/300,/0/default.jpg" alt="@context.Title" />
+        <a href="/details/@context.Id" class="btn btn-primary">Vai al dettaglio</a>
+
+
+    </Card>
+
+</Foreach>
+
+@foreach (var item in _list)
+{
+    <div>
+        <h2>@item.Title</h2>
+        @((MarkupString)item.Description)
+        <img src="https://www.artic.edu/iiif/2/@(item.ImageId)/full/300,/0/default.jpg" alt="@item.Title" />
+        <a href="/details/@item.Id" class="btn btn-primary">Vai al dettaglio</a>
+    </div>
+    <hr />
+}
+
+@code {
+    private IEnumerable<Artwork>? _list = []; // qua mi sono persa
+
+    protected override async Task OnInitializedAsync()
+    {
+        _list = await service.GetArtworks();
+    }
+
+     
+}
